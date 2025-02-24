@@ -1,51 +1,6 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 07-02-2025 a las 08:44:24
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+CREATE DATABASE  soporte_tecnico_informatica
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de datos: `soporte_tecnico_informatica`
---
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `direcciones_generales`
---
-
-CREATE TABLE `direcciones_generales` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `direcciones_generales`
---
-
-INSERT INTO `direcciones_generales` (`id`, `nombre`) VALUES
-(1, 'Jefatura de Alcaldía'),
-(2, 'Dirección General de Gobierno'),
-(3, 'Dirección General Jurídica y de Servicios Legales'),
-(4, 'Dirección General de Administración'),
-(5, 'Dirección General de Obras y Desarrollo Urbano'),
-(6, 'Dirección General de Servicios Urbanos'),
-(7, 'Dirección General de Desarrollo y Bienestar'),
-(8, 'Dirección General de los Derechos Culturales, Recreativos y Educativos'),
-(9, 'Dirección General de Seguridad Ciudadana y Protección Civil');
+USE DATABASE soporte_tecnico_informatica;
 
 -- --------------------------------------------------------
 
@@ -63,19 +18,51 @@ CREATE TABLE `hardware` (
 --
 
 INSERT INTO `hardware` (`id`, `nombre`) VALUES
-(1, 'Laptop'),
-(2, 'PC'),
-(3, 'Monitor'),
-(4, 'Mouse'),
-(5, 'Teclado'),
+(1, 'Escaner'),
+(2, 'Impresora'),
+(3, 'Laptop'),
+(4, 'Monitor'),
+(5, 'Mouse'),
 (6, 'Multifuncional'),
-(7, 'Impresora'),
-(8, 'Escaner'),
-(9, 'USB'),
-(10, 'Nobreak'),
+(7, 'No-Break'),
+(8, 'PC'),
+(9, 'Teclado'),
+(10, 'USB'),
 (11, 'Otro');
 
 -- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `registros`
+--
+
+CREATE TABLE `registros` (
+  `id` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `horallamada` time NOT NULL,
+  `horaatencion` time DEFAULT NULL,
+  `teloext` varchar(20) DEFAULT NULL,
+  `folio` varchar(50) DEFAULT NULL,
+  `noficio` varchar(50) DEFAULT NULL,
+  `ntabla` varchar(50) DEFAULT NULL,
+  `secretarias` varchar(100) DEFAULT NULL,
+  `hardware` varchar(100) DEFAULT NULL,
+  `nomreqser` varchar(100) DEFAULT NULL,
+  `ubicacion` varchar(100) DEFAULT NULL,
+  `niveluno` varchar(50) DEFAULT NULL,
+  `niveldos` varchar(50) DEFAULT NULL,
+  `niveltres` varchar(50) DEFAULT NULL,
+  `desfalla` text DEFAULT NULL,
+  `tecnicos` varchar(100) DEFAULT NULL,
+  `nprogresivo` varchar(50) DEFAULT NULL,
+  `mac` varchar(50) DEFAULT NULL,
+  `ip` varchar(50) DEFAULT NULL,
+  `tomarazon` text DEFAULT NULL,
+  `desserea` text DEFAULT NULL,
+  `nomusuate` varchar(100) DEFAULT NULL,
+  `firma` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 --
 -- Estructura de tabla para la tabla `secretarias`
@@ -91,10 +78,13 @@ CREATE TABLE `secretarias` (
 --
 
 INSERT INTO `secretarias` (`id`, `nombre`) VALUES
-(1, 'Fabiola'),
-(2, 'Chayo'),
-(3, 'Tatiana'),
-(4, 'Rosy');
+(1, 'Andrea Felix'),
+(2, 'Claudia Santos'),
+(3, 'Fabiola Estrada'),
+(4, 'Rosa Ramirez'),
+(5, 'Rosario Sanchez'),
+(6, 'Tatiana Farfan'),
+(7, 'Vanessa Gonzalez');
 
 -- --------------------------------------------------------
 
@@ -112,12 +102,30 @@ CREATE TABLE `tecnicos` (
 --
 
 INSERT INTO `tecnicos` (`id`, `nombre`) VALUES
-(1, 'Ing. Cesar Paulino'),
-(2, 'Josue Limon'),
-(3, 'Juan Benitez'),
-(4, 'Daniel'),
-(5, 'Arturo Salas'),
-(6, 'Mario Alberto');
+(1, 'Aban Prieto'),
+(2, 'Abraham Alvarado'),
+(3, 'Ángel Hernandez'),
+(4, 'Antonio Villa'),
+(5, 'Arturo Islas'),
+(6, 'Carolina Amaro'),
+(7, 'Cesar Parra'),
+(8, 'Cristopher Ibañez'),
+(9, 'Daniel Lopez'),
+(10, 'Emilio Linarez'),
+(11, 'Emilio Nuñez'),
+(12, 'Fernanado Aceves'),
+(13, 'Fernando Vera'),
+(14, 'Gladis Mora'),
+(15, 'Guillermo Sandoval'),
+(16, 'Hiram Olalde'),
+(17, 'Ivan Morales'),
+(18, 'Javier Alarcon'),
+(19, 'Josue Limon'),
+(20, 'Mario Lopez'),
+(21, 'Oscar Yañez'),
+(22, 'Rafael Gutierrez'),
+(23, 'Ricardo Aguilar'),
+(24, 'Ruben Ramirez');
 
 -- --------------------------------------------------------
 
@@ -149,15 +157,17 @@ INSERT INTO `ubicacion` (`id`, `nombre`) VALUES
 --
 
 --
--- Indices de la tabla `direcciones_generales`
---
-ALTER TABLE `direcciones_generales`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `hardware`
 --
 ALTER TABLE `hardware`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `registros`
+--
+ALTER TABLE `registros`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -179,20 +189,17 @@ ALTER TABLE `ubicacion`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `direcciones_generales`
---
-ALTER TABLE `direcciones_generales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
 -- AUTO_INCREMENT de la tabla `hardware`
 --
+
 ALTER TABLE `hardware`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de la tabla `registros`
+--
+ALTER TABLE `registros`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `secretarias`
@@ -216,3 +223,8 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+CREATE TABLE firma (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    respuesta ENUM('Sí', 'No') NOT NULL
+);
