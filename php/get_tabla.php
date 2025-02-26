@@ -1,9 +1,10 @@
 <?php
 require 'conexion.php'; // Asegúrate de que el archivo de conexión usa "$conexion"
 try {
-    $sql = "SELECT * FROM registros WHERE 1 LIMIT 15 ";
-    $result = $conexion->query($sql);
+    $sql = "SELECT * FROM registros WHERE 1 LIMIT 15 "; // Seleccionar registros
+    $result = $conexion->query($sql);                   // y ejecutar la consulta
 
+    // Mostrar en una tabla todos los registros obtenidos
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) { // Usar PDO en lugar de fetch_assoc()
         echo "<tr class=table-info>
                 <td>{$row['id']}</td>
